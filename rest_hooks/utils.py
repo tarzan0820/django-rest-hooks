@@ -45,6 +45,8 @@ def find_and_fire_hook(event_name, instance, user_override=None):
     if user_override is not False:
         if user_override:
             filters['user'] = user_override
+        elif hasattr(instance, 'users'):
+            filters['user__in'] = instance.users
         elif hasattr(instance, 'user'):
             filters['user'] = instance.user
         elif isinstance(instance, User):
